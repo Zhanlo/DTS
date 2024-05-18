@@ -314,8 +314,8 @@ class dual_t_s_WideResNet(MetaModule):
         self.relu = nn.LeakyReLU(0.1)
         # self.fc = MetaLinear(nChannels[3], n_classes)
 
-        self.fc = MetaLinear(nChannels[3], n_classes)# K分类器头
-        self.fc_K_plus_one_classes = MetaLinear(nChannels[3], n_classes+1)# K+1分类器头
+        self.fc = MetaLinear(nChannels[3], n_classes)
+        self.fc_K_plus_one_classes = MetaLinear(nChannels[3], n_classes+1)
 
 
         self.nChannels = nChannels[3]
@@ -407,7 +407,7 @@ class dual_t_s_WideResNet_K_plus_one(MetaModule):
         out = self.block3(out)
         out = self.relu(self.bn1(out))
         # out = F.avg_pool2d(out, 8)
-        pool_size = out.size(2)  # 获取特征图的高度（或宽度，因为它们应该是相同的）
+        pool_size = out.size(2)  
         out = F.avg_pool2d(out, pool_size)
         out = out.view(-1, self.nChannels)
         # return self.fc(out)
